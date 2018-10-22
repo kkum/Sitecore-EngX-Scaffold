@@ -18,8 +18,9 @@ Sitecore.Parameters.InitParams(
     context: Context,
     msBuildToolVersion: MSBuildToolVersion.Default,
     solutionName: "SolutionX",
-    scSiteUrl: "https://sc9.local", // default URL exposed from the box
-    unicornSerializationRoot: "unicorn-SolutionUriX"
+    scSiteUrl: "https://WebsiteUriX", // default URL exposed from the box
+    unicornSerializationRoot: "unicorn-SolutionUriX",
+    publishingTargetDir : "LocalPathX"
 );
 
 // //////////////////////////////////////////////////
@@ -73,8 +74,8 @@ Task("Default") // LocalDev
     .IsDependentOn("000-Clean")
     .IsDependentOn("001-Restore")
     .IsDependentOn("002-Build")
-    .IsDependentOn("003-Tests")
-    .IsDependentOn("004-Packages")
+    // .IsDependentOn("003-Tests")
+    // .IsDependentOn("004-Packages")
     .IsDependentOn("005-Publish")
     .IsDependentOn("006-Sync-Content");
 

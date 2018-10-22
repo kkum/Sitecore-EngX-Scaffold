@@ -2,7 +2,7 @@
 ID: "UnicornPlaceholderSettingIdX"
 Parent: "UnicornPlaceholderSettingParentX"
 Template: "c3b037a0-46e5-4b67-ac7a-a144b962a56f"
-Path: /sitecore/layout/Placeholder Settings/SolutionX/ModuleTypeX/ModuleNameX
+Path: /sitecore/layout/Placeholder Settings/ModuleTypeX/SolutionX/ModuleNameX
 DB: master
 Languages:
 - Language: en

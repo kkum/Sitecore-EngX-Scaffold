@@ -1,8 +1,8 @@
 {
-  "name": "generator-sitecore-engx-scaffold",
-  "version": "1.0.5",
-  "description": "EPAM Sitecore EngX Scaffold - Sitecore Helix solution generator",
-  "repository": "https://github.com/epam/sitecore-engx-scaffold",
+  "name": "generator-sitecore-sxa",
+  "version": "0.0.1",
+  "description": "Sitecore SXA Scaffold - Sitecore Helix solution generator based on sitecore-engx-scaffold",
+  "repository": "https://github.com/kkum/generator-sitecore-sxa",
   "files": [
     "generators",
     "lib",
@@ -15,10 +15,17 @@
     "sitecore",
     "unicorn",
     "helix",
+    "SXA",
     "yeoman-generator"
   ],
-  "author": "EPAM Systems, Inc",
-  "contributors": [{
+  "author": "Versusmind",
+  "contributors": [
+    {
+      "name": "Kumar Kirpalani",
+      "email": "sitecoredev@kirpalani.eu",
+      "url": "https://github.com/kkum"
+    },
+    {
       "name": "Alex Smagin",
       "email": "me@asmagin.com",
       "url": "https://github.com/asmagin"

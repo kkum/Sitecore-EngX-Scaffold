@@ -1,8 +1,8 @@
 ﻿---
-ID: "d938519c-9970-4cc4-bbc3-e81481010788"
-Parent: "4e5e3bfb-c253-4764-9f60-309172f9f592"
-Template: "fe5dd826-48c6-436d-b87a-7c4210c7413b"
-Path: /sitecore/media library/SolutionX/Project
+ID: "e3689be4-ca41-4ede-a758-c7e8f6028bfd"
+Parent: "e24c4a00-08d6-41c8-b60e-e7990b21697a"
+Template: "85adbf5b-e836-4932-a333-fe0f9fa1ed1e"
+Path: /sitecore/templates/Branches/Foundation/SolutionX
 DB: master
 Languages:
 - Language: en

@@ -1,15 +1,15 @@
 <Project ToolsVersion="4.0" 
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <publishUrl>https://sc9.local/</publishUrl>
+    <publishUrl>https://WebsiteUriX/</publishUrl>
     <WebPublishMethod>MSDeploy</WebPublishMethod>
     <LastUsedBuildConfiguration>Debug</LastUsedBuildConfiguration>
     <LastUsedPlatform>Any CPU</LastUsedPlatform>
     <SiteUrlToLaunchAfterPublish />
     <LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
     <ExcludeApp_Data>False</ExcludeApp_Data>
-    <MSDeployServiceURL>https://sc9.local:8172/msdeploy.axd</MSDeployServiceURL>
-    <DeployIisAppPath>sc9.local</DeployIisAppPath>
+    <MSDeployServiceURL>https://WebsiteUriX:8172/msdeploy.axd</MSDeployServiceURL>
+    <DeployIisAppPath>WebsiteUriX</DeployIisAppPath>
     <RemoteSitePhysicalPath />
     <SkipExtraFilesOnServer>True</SkipExtraFilesOnServer>
     <MSDeployPublishMethod>WMSVC</MSDeployPublishMethod>

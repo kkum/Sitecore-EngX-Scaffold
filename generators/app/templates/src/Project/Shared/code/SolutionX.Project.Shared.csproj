@@ -102,7 +102,7 @@
           <IISUrl>http://localhost:52650/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>True</UseCustomServer>
-          <CustomServerUrl>https://sc9.local</CustomServerUrl>
+          <CustomServerUrl>https://WebsiteUriX</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -2,6 +2,12 @@
   "solutionName": {
     "prompt": "Provide a name for a Solution:"
   },
+  "websiteUri": {
+    "prompt": "Provide the hostname of the website:"
+  },
+  "localPath": {
+    "prompt": "Provide the root directory of the website: (escape)"
+  },
   "moduleType": {
     "prompt": "Provide the type of module:"
   },

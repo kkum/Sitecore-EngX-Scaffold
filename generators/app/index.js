@@ -19,6 +19,18 @@ module.exports = class HelixGenerator extends Generator {
       desc: 'The name of the solution.',
       default: this.appname,
     });
+    this.option('websiteUri', {
+      type: String,
+      required: false,
+      desc: 'The uri of the website.',
+      default: this.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
+    });
+    this.option('localPath', {
+      type: String,
+      required: false,
+      desc: 'The directory root path of the website.',
+      default: 'C:\\Inetpub\wwwroot\\' + this.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
+    });
     this.option('sitecoreVersion', {
       type: String,
       required: false,
@@ -47,16 +59,26 @@ module.exports = class HelixGenerator extends Generator {
 
     return self
       .prompt([{
-          name: 'solutionName',
-          message: msg.solutionName.prompt,
-          default: self.appname,
-        },
-        {
-          type: 'list',
-          name: 'sitecoreVersion',
-          message: msg.sitecoreVersion.prompt,
-          choices: versions,
-        },
+        name: 'solutionName',
+        message: msg.solutionName.prompt,
+        default: self.appname,
+      },
+      {
+        name: 'websiteUri',
+        message: msg.websiteUri.prompt,
+        default: self.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
+      },
+      {
+        name: 'localPath',
+        message: msg.localPath.prompt,
+        default: 'C:\\Inetpub\\wwwroot\\' + self.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
+      },
+      {
+        type: 'list',
+        name: 'sitecoreVersion',
+        message: msg.sitecoreVersion.prompt,
+        choices: versions,
+      },
       ])
       .then(function (answers) {
         self.options = Object.assign({}, self.options, answers);
@@ -66,7 +88,7 @@ module.exports = class HelixGenerator extends Generator {
           message: msg.sitecoreUpdate.prompt,
           choices: self.options.sitecoreVersion.value ?
             self.options.sitecoreVersion.value : self.options.sitecoreVersion,
-        }, ]);
+        },]);
       })
       .then(function (answers) {
         self.options = Object.assign({}, self.options, answers);
@@ -75,15 +97,15 @@ module.exports = class HelixGenerator extends Generator {
           old: '9.0.171219',
           new: (self.options.sitecoreUpdate.value ? self.options.sitecoreUpdate.value : self.options.sitecoreUpdate)
             .nugetVersion,
-        }, ];
+        },];
 
         self.options.vagrantBoxName = (self.options.sitecoreUpdate.value ?
           self.options.sitecoreUpdate.value :
           self.options.sitecoreUpdate
         ).vagrantBoxName;
-	    
-		self.options.solutionNameUri = self.options.solutionName.replace(/[^a-z0-9\-]/ig, '-');
-		
+
+        self.options.solutionNameUri = self.options.solutionName.replace(/[^a-z0-9\-]/ig, '-');
+
         self.async();
       });
   }
@@ -93,7 +115,10 @@ module.exports = class HelixGenerator extends Generator {
 
     self.options.solutionSettings = JSON.stringify({
       solutionName: self.options.solutionName,
-	  solutionNameUri: self.options.solutionNameUri,
+      solutionNameUri: self.options.solutionNameUri,
+      websiteUri: self.options.websiteUri,
+      localPath: self.options.localPath,
+      solutionNameUri: self.options.solutionNameUri,
       sitecoreVersion: self.options.sitecoreVersion,
       sitecoreUpdate: self.options.sitecoreUpdate,
     });
@@ -167,7 +192,7 @@ module.exports = class HelixGenerator extends Generator {
   end() {
     const self = this;
 
-    utils.addCredentialsToWindowsVault('sc9.local', 'vagrant', 'vagrant').then(() => {
+    utils.addCredentialsToWindowsVault(self.options.websiteUri, 'vagrant', 'vagrant').then(() => {
       console.log('');
       console.log('Solution name ' + chalk.green.bold(self.options.solutionName) + ' has been created.');
     });
@@ -184,6 +209,8 @@ module.exports = class HelixGenerator extends Generator {
       .replace(/SolutionSettingsX/g, options.solutionSettings)
       .replace(/SolutionX/g, options.solutionName)
       .replace(/VagrantBoxNameX/g, options.vagrantBoxName)
-	  .replace(/SolutionUriX/g, options.solutionNameUri);
+      .replace(/WebsiteUriX/g, options.websiteUri)
+      .replace(/LocalPathX/g, options.localPath)
+      .replace(/SolutionUriX/g, options.solutionNameUri);
   }
 };

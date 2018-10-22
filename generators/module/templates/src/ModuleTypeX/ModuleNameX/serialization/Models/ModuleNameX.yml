@@ -2,7 +2,7 @@
 ID: "UnicornModelIdX"
 Parent: "UnicornModelParentX"
 Template: "a87a00b1-e6db-45ab-8b54-636fec3b5523"
-Path: /sitecore/layout/Models/SolutionX/ModuleTypeX/ModuleNameX
+Path: /sitecore/layout/Models/ModuleTypeX/SolutionX/ModuleNameX
 DB: master
 Languages:
 - Language: en
