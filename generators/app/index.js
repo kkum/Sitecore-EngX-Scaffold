@@ -2,6 +2,7 @@
 const chalk = require('chalk');
 const Generator = require('yeoman-generator-asmagin');
 const yosay = require('yosay');
+const getRandomValues = require('get-random-values');
 
 const utils = require('../../lib/utils.js');
 
@@ -23,13 +24,13 @@ module.exports = class HelixGenerator extends Generator {
       type: String,
       required: false,
       desc: 'The uri of the website.',
-      default: this.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
+      default: this.appname.replace(/[^a-z0-9\-]/gi, '-').toLocaleLowerCase() + '.local',
     });
     this.option('localPath', {
       type: String,
       required: false,
       desc: 'The directory root path of the website.',
-      default: 'C:\\Inetpub\wwwroot\\' + this.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
+      default: 'C:\\Inetpubwwwroot\\' + this.appname.replace(/[^a-z0-9\-]/gi, '-').toLocaleLowerCase() + '.local',
     });
     this.option('sitecoreVersion', {
       type: String,
@@ -58,53 +59,59 @@ module.exports = class HelixGenerator extends Generator {
     const self = this;
 
     return self
-      .prompt([{
-        name: 'solutionName',
-        message: msg.solutionName.prompt,
-        default: self.appname,
-      },
-      {
-        name: 'websiteUri',
-        message: msg.websiteUri.prompt,
-        default: self.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
-      },
-      {
-        name: 'localPath',
-        message: msg.localPath.prompt,
-        default: 'C:\\Inetpub\\wwwroot\\' + self.appname.replace(/[^a-z0-9\-]/ig, '-').toLocaleLowerCase() + '.local',
-      },
-      {
-        type: 'list',
-        name: 'sitecoreVersion',
-        message: msg.sitecoreVersion.prompt,
-        choices: versions,
-      },
-      ])
-      .then(function (answers) {
-        self.options = Object.assign({}, self.options, answers);
-        return self.prompt([{
+      .prompt([
+        {
+          name: 'solutionName',
+          message: msg.solutionName.prompt,
+          default: self.appname,
+        },
+        {
+          name: 'websiteUri',
+          message: msg.websiteUri.prompt,
+          default: self.appname.replace(/[^a-z0-9\-]/gi, '-').toLocaleLowerCase() + '.local',
+        },
+        {
+          name: 'localPath',
+          message: msg.localPath.prompt,
+          default: 'C:\\Inetpub\\wwwroot\\' + self.appname.replace(/[^a-z0-9\-]/gi, '-').toLocaleLowerCase() + '.local',
+        },
+        {
           type: 'list',
-          name: 'sitecoreUpdate',
-          message: msg.sitecoreUpdate.prompt,
-          choices: self.options.sitecoreVersion.value ?
-            self.options.sitecoreVersion.value : self.options.sitecoreVersion,
-        },]);
+          name: 'sitecoreVersion',
+          message: msg.sitecoreVersion.prompt,
+          choices: versions,
+        },
+      ])
+      .then(function(answers) {
+        self.options = Object.assign({}, self.options, answers);
+        return self.prompt([
+          {
+            type: 'list',
+            name: 'sitecoreUpdate',
+            message: msg.sitecoreUpdate.prompt,
+            choices: self.options.sitecoreVersion.value
+              ? self.options.sitecoreVersion.value
+              : self.options.sitecoreVersion,
+          },
+        ]);
       })
-      .then(function (answers) {
+      .then(function(answers) {
         self.options = Object.assign({}, self.options, answers);
         // Nuget version update
-        self.options.nuget = [{
-          old: '9.0.171219',
-          new: (self.options.sitecoreUpdate.value ? self.options.sitecoreUpdate.value : self.options.sitecoreUpdate)
-            .nugetVersion,
-        },];
+        self.options.nuget = [
+          {
+            old: '9.0.171219',
+            new: (self.options.sitecoreUpdate.value ? self.options.sitecoreUpdate.value : self.options.sitecoreUpdate)
+              .nugetVersion,
+          },
+        ];
 
-        self.options.vagrantBoxName = (self.options.sitecoreUpdate.value ?
-          self.options.sitecoreUpdate.value :
-          self.options.sitecoreUpdate
+        self.options.vagrantBoxName = (self.options.sitecoreUpdate.value
+          ? self.options.sitecoreUpdate.value
+          : self.options.sitecoreUpdate
         ).vagrantBoxName;
 
-        self.options.solutionNameUri = self.options.solutionName.replace(/[^a-z0-9\-]/ig, '-');
+        self.options.solutionNameUri = self.options.solutionName.replace(/[^a-z0-9\-]/gi, '-');
 
         self.async();
       });
@@ -117,7 +124,7 @@ module.exports = class HelixGenerator extends Generator {
       solutionName: self.options.solutionName,
       solutionNameUri: self.options.solutionNameUri,
       websiteUri: self.options.websiteUri,
-      localPath: self.options.localPath,
+      localPath: self.options.localPath.replace('\\', '\\\\'),
       solutionNameUri: self.options.solutionNameUri,
       sitecoreVersion: self.options.sitecoreVersion,
       sitecoreUpdate: self.options.sitecoreUpdate,
@@ -147,7 +154,7 @@ module.exports = class HelixGenerator extends Generator {
 
     self.fs.copy(self.templatePath('**/*'), self.destinationPath(), {
       globOptions,
-      process: function (content, path) {
+      process: function(content, path) {
         if (typeof content === 'undefined') {
           return;
         }
@@ -167,23 +174,21 @@ module.exports = class HelixGenerator extends Generator {
         });
 
         // scope to modifications of rainbow YAML fils only
-        if (path.match(/.*SolutionRoots.*\.yml/gi) ||
-          path.match(/.*serialization\.content.*\.yml/gi)
-        ) {
+        if (path.match(/.*SolutionRoots.*\.yml/gi) || path.match(/.*serialization\.content.*\.yml/gi)) {
           result = utils.generateHashBasedItemIdsInYamlFile(result, path);
         } else if (path.match(/.*\.yml/gi)) {
           result = utils.generateHashBasedItemIdsInYamlFile(result, path, true);
         }
 
-        // Cannot set VM name if it contains periods 
+        // Cannot set VM name if it contains periods
         if (path.match(/.*Vagrantfile/gi)) {
-          const hostname = self.options.solutionName.replace(/[^a-z0-9\-]/ig, '-').toLowerCase();
-          result = result.replace(new RegExp(utils.escapeRegExp(self.options.solutionName), "g"), hostname);
+          const hostname = self.options.solutionName.replace(/[^a-z0-9\-]/gi, '-').toLowerCase();
+          result = result.replace(new RegExp(utils.escapeRegExp(self.options.solutionName), 'g'), hostname);
         }
 
         return result;
       },
-      processPath: function (path) {
+      processPath: function(path) {
         return self._replaceTokens(path, self.options);
       },
     });
@@ -203,14 +208,19 @@ module.exports = class HelixGenerator extends Generator {
       return input;
     }
 
+    var uuidv4 = function() {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (c ^ (getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+      );
+    };
+
     var content = input instanceof Buffer ? input.toString('utf8') : input;
 
     return content
       .replace(/SolutionSettingsX/g, options.solutionSettings)
       .replace(/SolutionX/g, options.solutionName)
       .replace(/VagrantBoxNameX/g, options.vagrantBoxName)
-      .replace(/WebsiteUriX/g, options.websiteUri)
-      .replace(/LocalPathX/g, options.localPath)
+      .replace(/UuidX/g, uuidv4())
       .replace(/SolutionUriX/g, options.solutionNameUri);
   }
 };
