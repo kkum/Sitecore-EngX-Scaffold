@@ -2,7 +2,7 @@
 ID: "UnicornMediaIdX"
 Parent: "UnicornMediaParentX"
 Template: "fe5dd826-48c6-436d-b87a-7c4210c7413b"
-Path: /sitecore/media library/SolutionX/ModuleTypeX/ModuleNameX
+Path: /sitecore/media library/ModuleTypeX/SolutionX/ModuleNameX
 DB: master
 Languages:
 - Language: en

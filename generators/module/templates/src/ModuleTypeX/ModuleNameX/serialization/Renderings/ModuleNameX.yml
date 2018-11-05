@@ -2,7 +2,7 @@
 ID: "UnicornRenderingIdX"
 Parent: "UnicornRenderingParentX"
 Template: "7ee0975b-0698-493e-b3a2-0b2ef33d0522"
-Path: /sitecore/layout/Renderings/SolutionX/ModuleTypeX/ModuleNameX
+Path: /sitecore/layout/Renderings/ModuleTypeX/SolutionX/ModuleNameX
 DB: master
 Languages:
 - Language: en

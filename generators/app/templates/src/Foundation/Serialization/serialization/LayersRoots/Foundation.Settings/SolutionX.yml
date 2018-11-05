@@ -1,8 +1,8 @@
 ﻿---
-ID: "e3689be4-ca41-4ede-a758-c7e8f6028bfd"
-Parent: "e24c4a00-08d6-41c8-b60e-e7990b21697a"
-Template: "85adbf5b-e836-4932-a333-fe0f9fa1ed1e"
-Path: /sitecore/templates/Branches/SolutionX/Foundation
+ID: "441ff12d-0754-4eb2-b842-2862ffa3891c"
+Parent: "eaf52b0e-7c8e-44a1-82d3-0a824c5844c5"
+Template: "a87a00b1-e6db-45ab-8b54-636fec3b5523"
+Path: /sitecore/system/Settings/Foundation/SolutionX
 DB: master
 Languages:
 - Language: en

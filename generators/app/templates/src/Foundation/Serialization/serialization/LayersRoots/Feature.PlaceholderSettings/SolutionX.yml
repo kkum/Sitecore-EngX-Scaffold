@@ -1,8 +1,8 @@
 ﻿---
-ID: "2001ec49-d424-4c25-8c38-86f64f4fd038"
-Parent: "32566f0e-7686-45f1-a12f-d7260bd78bc3"
-Template: "7ee0975b-0698-493e-b3a2-0b2ef33d0522"
-Path: /sitecore/layout/Renderings/SolutionX
+ID: "7b3e68bf-4724-43b7-b937-c096e3577264"
+Parent: "1b59149d-7ed3-4d58-86a9-32eded8c0368"
+Template: "c3b037a0-46e5-4b67-ac7a-a144b962a56f"
+Path: /sitecore/layout/Placeholder Settings/Feature/SolutionX
 DB: master
 Languages:
 - Language: en
@@ -11,7 +11,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20170501T172832Z
+      Value: 20170501T174657Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
