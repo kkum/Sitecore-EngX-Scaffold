@@ -1,8 +1,8 @@
 {
-  "name": "generator-sitecore-sxa",
+  "name": "generator-vxa",
   "version": "0.0.1",
   "description": "Sitecore SXA Scaffold - Sitecore Helix solution generator based on sitecore-engx-scaffold",
-  "repository": "https://github.com/kkum/generator-sitecore-sxa",
+  "repository": "https://github.com/kkum/generator-vxa",
   "files": [
     "generators",
     "lib",

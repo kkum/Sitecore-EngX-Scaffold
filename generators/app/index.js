@@ -30,7 +30,7 @@ module.exports = class HelixGenerator extends Generator {
       type: String,
       required: false,
       desc: 'The directory root path of the website.',
-      default: 'C:\\Inetpubwwwroot\\' + this.appname.replace(/[^a-z0-9\-]/gi, '-').toLocaleLowerCase() + '.local',
+      default: 'C:\\Inetpub\\wwwroot\\' + this.appname.replace(/[^a-z0-9\-]/gi, '-').toLocaleLowerCase() + '.local',
     });
     this.option('sitecoreVersion', {
       type: String,
@@ -124,7 +124,7 @@ module.exports = class HelixGenerator extends Generator {
       solutionName: self.options.solutionName,
       solutionNameUri: self.options.solutionNameUri,
       websiteUri: self.options.websiteUri,
-      localPath: self.options.localPath.replace('\\', '\\\\'),
+      localPath: self.options.localPath.replace(/\\/g, '\\\\'),
       solutionNameUri: self.options.solutionNameUri,
       sitecoreVersion: self.options.sitecoreVersion,
       sitecoreUpdate: self.options.sitecoreUpdate,
@@ -208,19 +208,15 @@ module.exports = class HelixGenerator extends Generator {
       return input;
     }
 
-    var uuidv4 = function() {
-      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-        (c ^ (getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
-      );
-    };
-
-    var content = input instanceof Buffer ? input.toString('utf8') : input;
+     var content = input instanceof Buffer ? input.toString('utf8') : input;
 
     return content
       .replace(/SolutionSettingsX/g, options.solutionSettings)
       .replace(/SolutionX/g, options.solutionName)
       .replace(/VagrantBoxNameX/g, options.vagrantBoxName)
-      .replace(/UuidX/g, uuidv4())
-      .replace(/SolutionUriX/g, options.solutionNameUri);
+      .replace(/LocalPathX/g, options.localPath.replace(/\\/g, '\\\\'))
+      .replace(/SolutionUriX/g, options.solutionNameUri)
+      .replace(/WebsiteUriX/g, options.websiteUri)
+      ;
   }
 };
